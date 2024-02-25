@@ -20,6 +20,9 @@ int main(){
         switch (kbhit()){
             char teclas = getch();
         case teclas == 'A': x--;
+
+
+        // holaaaa
         break;
         
         
