@@ -17,20 +17,32 @@ int main(){
         gotoxy(x,y);
         printf("*");
 
-        switch (kbhit()){
-            char teclas = getch();
-        case teclas == 'A': x--;
+          if(kbhit()){
+            char tecla = getch();
+              switch(tecla){
+                
+            case 'a':
+                x--;
+                break;
 
+            case 'd':
+                x++;
+                break;
 
-         for(){};
-        break;
-        
-        
-        default:
+            case 'w':
+                y--;
+                break;
+
+            case 's':
+                y++;
+                break;
+
+            case 'q':
+            printf("game over"); game_over = true;
             break;
+
+            }
         }
-
-
     }
 
     return 0;
