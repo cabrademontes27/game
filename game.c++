@@ -4,6 +4,8 @@
 
 void gotoxy(int x, int y);
 
+
+
 int main(){
     
     gotoxy(4,6); 
@@ -18,7 +20,10 @@ int main(){
         printf("*");
 
           if(kbhit()){
+            // se agrega esta parte para borrar la marca de los asteristcos
             char tecla = getch();
+            gotoxy(x,y);
+            printf(" ");
               switch(tecla){
                 
             case 'a':
