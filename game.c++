@@ -22,7 +22,7 @@ int main(){
         case teclas == 'A': x--;
 
 
-        // holaaaa
+         for(){};
         break;
         
         
