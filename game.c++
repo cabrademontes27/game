@@ -39,38 +39,42 @@ void NAVE::borrar(){
 
 void NAVE::mover(){
 
-    if(kbhit()){
-            // se agrega esta parte para borrar la marca de los asteristcos
-            char tecla = getch();
-            borrar();
-              switch(tecla){
-                
-            case 'a':
-                x--;
-                break;
+    bool game_over = false;
+    while(!game_over){
+        if(kbhit()){
+                // se agrega esta parte para borrar la marca de los asteristcos
+                char tecla = getch();
+                borrar();
+                switch(tecla){
+                    
+                case 'a':
+                    x--;
+                    break;
 
-            case 'd':
-                x++;
-                break;
+                case 'd':
+                    x++;
+                    break;
 
-            case 'w':
-                y--;
-                break;
+                case 'w':
+                    y--;
+                    break;
 
-            case 's':
-                y++;
-                break;
-            case 'q':
-                // falta agregar la funcion para terminar, si no no puedes salir 
-                // falta corregir el cursor ya que no desaparece 
-                // falta mejorar el bucle y los metodos 
-                break;
+                case 's':
+                    y++;
+                    break;
+                case 'q':
+                    game_over = true;
+                    // falta agregar la funcion para terminar, si no no puedes salir 
+                    // falta corregir el cursor ya que no desaparece 
+                    // falta mejorar el bucle y los metodos 
+                    break;
 
+                };
+                marcar();
             };
-            marcar();
-        };
+        Sleep(30);
+    }; 
 };
-
 
 
 
@@ -82,14 +86,7 @@ int main(){
     N.marcar();
     
 
-    bool game_over = false;
-    while(!game_over){
-        
-        N.mover();
-          
-        //esta func detiene el programa por 30 milisegundos lo que hace que itere menos veces
-        Sleep(30);
-    }
+    N.mover();
 
     return 0;
 }
@@ -118,7 +115,6 @@ void ocultarCursor(){
     // la func si no, no jala y por eso el &
     // lo pasa como referencia 
     SetConsoleCursorInfo(hCon,&aparienciaCursor);
-
 
 
 
