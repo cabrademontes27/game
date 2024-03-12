@@ -4,6 +4,7 @@
 
 void gotoxy(int x, int y);
 void ocultarCursor();
+void pintar_limites();
 
 class NAVE{
     int x, y;
@@ -80,8 +81,8 @@ void NAVE::mover(){
 
 int main(){
     
-    //ocultarCursor();
-
+    ocultarCursor();
+    pintar_limites();
     NAVE N(7,7);
     N.marcar();
     
@@ -118,4 +119,18 @@ void ocultarCursor(){
 
 
 
+}
+
+// se agrego para pintar las paredes oh limitantes 
+void pintar_limites(){
+
+    for(int i = 2; i < 205;i++){
+        gotoxy(i,1);
+        printf("%c",205);
+        gotoxy(i,50);
+        printf("%c",205);
+    }
+
+
+    
 }
