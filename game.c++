@@ -8,16 +8,18 @@ void pintar_limites();
 
 class NAVE{
     int x, y;
+    int vida;
 
     public:
-        NAVE(int _x, int _y);
+        NAVE(int _x, int _y, int _vida);
         void marcar();
         void borrar();
         void mover();
+        void barraDeSalud();
 };
 
-NAVE::NAVE(int _x, int _y){
-
+NAVE::NAVE(int _x, int _y, int _vida){
+    vida = _vida;
     x = _x;
     y = _y;
 };
@@ -26,9 +28,9 @@ void NAVE::marcar(){
     // estamos llamando a la func gotoxy sobre la ubicacion 
     // y el print imprime a un caracter que tenga asignado el num 30 
     // segun la tabla ASCII
-   gotoxy(x,y);    printf("  %c  ",30);
-   gotoxy(x,y+1);  printf(" %c%c%c",30,30,30);
-   gotoxy(x,y+2);  printf("  %c  ",30);
+   gotoxy(x,y);    printf(" %c  ",30);
+   gotoxy(x,y+1);  printf("%c%c%c",30,30,30);
+   gotoxy(x,y+2);  printf(" %c  ",30);
 };
 
 void NAVE::borrar(){
@@ -46,36 +48,44 @@ void NAVE::mover(){
                 // se agrega esta parte para borrar la marca de los asteristcos
                 char tecla = getch();
                 borrar();
-                switch(tecla){
-                    
-                case 'a':
+                // la conddicion de x>3 es para delimitar el limite 
+                if(tecla == 'a' && (x > 3)){
                     x--;
-                    break;
-
-                case 'd':
+                }
+                if(tecla == 'd' && (x < 121)){
                     x++;
-                    break;
-
-                case 'w':
+                }
+                if(tecla == 'w' && (y > 3)){
                     y--;
-                    break;
-
-                case 's':
+                }
+                if(tecla == 's' && (y < 34)){
                     y++;
-                    break;
-                case 'q':
+                }
+                if(tecla == 'q'){
                     game_over = true;
-                    // falta agregar la funcion para terminar, si no no puedes salir 
-                    // falta corregir el cursor ya que no desaparece 
-                    // falta mejorar el bucle y los metodos 
-                    break;
+                }
 
-                };
                 marcar();
             };
         Sleep(30);
     }; 
 };
+
+// indicador de salud 
+void NAVE::barraDeSalud(){
+    gotoxy(100,0);
+    printf("salud");
+    gotoxy(110,0);
+    printf("     ");
+    for(int i = 0; i < vida;i++){ 
+        gotoxy(110 + i,0);
+        printf("%c",3);
+    }
+
+
+
+
+}
 
 
 
@@ -83,7 +93,8 @@ int main(){
     
     ocultarCursor();
     pintar_limites();
-    NAVE N(7,7);
+    NAVE N(7,7,3);
+    N.barraDeSalud();
     N.marcar();
     
 
@@ -124,13 +135,28 @@ void ocultarCursor(){
 // se agrego para pintar las paredes oh limitantes 
 void pintar_limites(){
 
-    for(int i = 2; i < 205;i++){
+    // pinta x o sea horizontal
+    for(int i = 2; i < 127;i++){
         gotoxy(i,1);
         printf("%c",205);
-        gotoxy(i,50);
+        gotoxy(i,38);
         printf("%c",205);
+        
+        gotoxy(1,1);
+        printf("%c",201);
+        gotoxy(127,1);
+        printf("%c",187);
     }
+    // pinta la y o sea vertical
+    for(int i = 2; i < 38; i++){
+        gotoxy(1,i);
+        printf("%c",186);
+        gotoxy(127,i);
+        printf("%c",186);
 
-
-    
+        gotoxy(1,38);
+        printf("%c",200);
+        gotoxy(127,38);
+        printf("%c",188);
+    }
 }
