@@ -8,18 +8,21 @@ void pintar_limites();
 
 class NAVE{
     int x, y;
+    int corazones;
     int vida;
 
     public:
-        NAVE(int _x, int _y, int _vida);
+        NAVE(int _x, int _y, int _corazones,int _vida);
         void marcar();
         void borrar();
         void mover();
         void barraDeSalud();
+        void morir();
 };
 
-NAVE::NAVE(int _x, int _y, int _vida){
+NAVE::NAVE(int _x, int _y, int _corazones,int _vida){
     vida = _vida;
+    corazones = _corazones;
     x = _x;
     y = _y;
 };
@@ -48,6 +51,7 @@ void NAVE::mover(){
                 // se agrega esta parte para borrar la marca de los asteristcos
                 char tecla = getch();
                 borrar();
+                barraDeSalud();
                 // la conddicion de x>3 es para delimitar el limite 
                 if(tecla == 'a' && (x > 3)){
                     x--;
@@ -64,6 +68,10 @@ void NAVE::mover(){
                 if(tecla == 'q'){
                     game_over = true;
                 }
+                if(tecla == 'p'){
+                    corazones--;
+                }
+                
 
                 marcar();
             };
@@ -71,21 +79,49 @@ void NAVE::mover(){
     }; 
 };
 
-// indicador de salud 
+// indicador de vidas 
 void NAVE::barraDeSalud(){
+
+    gotoxy(10,0);
+    printf("vidas: %d", vida);
+
     gotoxy(100,0);
     printf("salud");
     gotoxy(110,0);
     printf("     ");
-    for(int i = 0; i < vida;i++){ 
+    for(int i = 0; i < corazones;i++){ 
         gotoxy(110 + i,0);
         printf("%c",3);
     }
+}
+
+void NAVE::morir(){
+
+    if(corazones == 0){
+        borrar();
+        gotoxy(x,y);   printf("   **   ");
+        gotoxy(x,y+1); printf("  ****  ");
+        gotoxy(x,y+2); printf("   **   ");
+        Sleep(200);
+
+        borrar();
+        gotoxy(x,y);   printf(" * ** * ");
+        gotoxy(x,y+1); printf("  ****  ");
+        gotoxy(x,y+2); printf(" * ** * ");
+        Sleep(200);
+
+        vida--;
+        corazones = 3;
+        barraDeSalud();
+        marcar();
 
 
+        
+    }
 
 
 }
+
 
 
 
@@ -93,9 +129,10 @@ int main(){
     
     ocultarCursor();
     pintar_limites();
-    NAVE N(7,7,3);
-    N.barraDeSalud();
+    NAVE N(7,7,3,3);
     N.marcar();
+    N.barraDeSalud();
+
     
 
     N.mover();
