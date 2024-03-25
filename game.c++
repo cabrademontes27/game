@@ -82,13 +82,9 @@ void NAVE::mover(){
 // indicador de vidas 
 void NAVE::barraDeSalud(){
 
-    gotoxy(10,0);
-    printf("vidas: %d", vida);
-
-    gotoxy(100,0);
-    printf("salud");
-    gotoxy(110,0);
-    printf("     ");
+    gotoxy(10,0); printf("vidas: %d", vida);
+    gotoxy(100,0); printf("salud");
+    gotoxy(110,0); printf("     ");
     for(int i = 0; i < corazones;i++){ 
         gotoxy(110 + i,0);
         printf("%c",3);
