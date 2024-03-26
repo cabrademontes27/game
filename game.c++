@@ -1,10 +1,13 @@
 #include <stdio.h>
 #include <windows.h>
 #include <conio.h>
+#include <stdlib.h>
 
 void gotoxy(int x, int y);
 void ocultarCursor();
 void pintar_limites();
+
+using namespace std;
 
 class NAVE{
     int x, y;
@@ -38,20 +41,21 @@ void NAVE::marcar(){
 
 void NAVE::borrar(){
 
-    gotoxy(x,y);  printf("      ");
-    gotoxy(x,y+1);printf("      ");
-    gotoxy(x,y+2);printf("      ");
+    gotoxy(x,y);  printf("        ");
+    gotoxy(x,y+1);printf("        ");
+    gotoxy(x,y+2);printf("        ");
 };
 
 void NAVE::mover(){
 
     bool game_over = false;
     while(!game_over){
+        
+        morir();
         if(kbhit()){
                 // se agrega esta parte para borrar la marca de los asteristcos
                 char tecla = getch();
                 borrar();
-                barraDeSalud();
                 // la conddicion de x>3 es para delimitar el limite 
                 if(tecla == 'a' && (x > 3)){
                     x--;
@@ -70,6 +74,7 @@ void NAVE::mover(){
                 }
                 if(tecla == 'p'){
                     corazones--;
+                    barraDeSalud();
                 }
                 
 
@@ -82,10 +87,10 @@ void NAVE::mover(){
 // indicador de vidas 
 void NAVE::barraDeSalud(){
 
-    gotoxy(10,0); printf("vidas: %d", vida);
+    gotoxy(10,0); printf("VIDAS: %d", vida);
     gotoxy(100,0); printf("salud");
-    gotoxy(110,0); printf("     ");
-    for(int i = 0; i < corazones;i++){ 
+    gotoxy(110,0); printf("      ");
+    for(int i = 1; i <= corazones; i++){ 
         gotoxy(110 + i,0);
         printf("%c",3);
     }
@@ -98,20 +103,20 @@ void NAVE::morir(){
         gotoxy(x,y);   printf("   **   ");
         gotoxy(x,y+1); printf("  ****  ");
         gotoxy(x,y+2); printf("   **   ");
-        Sleep(200);
+        Sleep(300);
 
         borrar();
         gotoxy(x,y);   printf(" * ** * ");
-        gotoxy(x,y+1); printf("  ****  ");
+        gotoxy(x,y+1); printf("  *  *  ");
         gotoxy(x,y+2); printf(" * ** * ");
-        Sleep(200);
+        Sleep(300);
+        borrar();
 
         vida--;
         corazones = 3;
         barraDeSalud();
         marcar();
-
-
+        
         
     }
 
@@ -120,16 +125,75 @@ void NAVE::morir(){
 
 
 
+//nueva clase asteroide 
+class ASTEROIDE{
+private:
+    int x,y;
+
+public:
+    ASTEROIDE(int _x, int _y);
+    void pintar();
+    void mover();
+
+
+
+
+};
+
+ASTEROIDE::ASTEROIDE(int _x, int _y){
+
+    x = _x;
+    y = _y;
+
+
+}
+
+void ASTEROIDE::pintar(){
+
+    gotoxy(x,y); printf("%c",220);
+
+}
+
+void ASTEROIDE::mover(){
+
+
+    bool apagador = false;
+    while(!apagador){
+        gotoxy(x,y); printf(" ");
+        y++;
+
+        gotoxy(x,y); printf(" ");
+        if(y >= 30){
+            y = 4;
+            x = rand() % 132;
+        }
+        pintar();
+        Sleep(1000);
+
+    }
+
+}
+
+
+
+
+
+
+
+
 
 int main(){
     
     ocultarCursor();
     pintar_limites();
+
     NAVE N(7,7,3,3);
+    ASTEROIDE AST(10,4);
     N.marcar();
     N.barraDeSalud();
 
-    
+    AST.mover();
+
 
     N.mover();
 
