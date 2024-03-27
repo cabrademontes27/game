@@ -34,16 +34,22 @@ void NAVE::marcar(){
     // estamos llamando a la func gotoxy sobre la ubicacion 
     // y el print imprime a un caracter que tenga asignado el num 30 
     // segun la tabla ASCII
+<<<<<<< HEAD
    gotoxy(x+1,y);    printf("%c",30);
    gotoxy(x,y+1);  printf("%c%c%c",30,30,30);
    gotoxy(x+1,y+2);  printf("%c",30);
+=======
+   gotoxy(x,y);    printf(" %c  ",30);
+   gotoxy(x,y+1);  printf("%c%c%c",30,30,30);
+   gotoxy(x,y+2);  printf(" %c  ",30);
+>>>>>>> 61975e91aeb86a155429cab7c9b4876a3c48b208
 };
 
 void NAVE::borrar(){
 
-    gotoxy(x,y);  printf("      ");
-    gotoxy(x,y+1);printf("      ");
-    gotoxy(x,y+2);printf("      ");
+    gotoxy(x,y);  printf("        ");
+    gotoxy(x,y+1);printf("        ");
+    gotoxy(x,y+2);printf("        ");
 };
 
 void NAVE::mover(){
@@ -100,6 +106,7 @@ void NAVE::morir(){
 
     if(corazones == 0){
         borrar();
+<<<<<<< HEAD
         gotoxy(x+1,y);   printf("**");
         gotoxy(x,y+1);   printf("****");
         gotoxy(x+1,y+2); printf("**");
@@ -109,6 +116,17 @@ void NAVE::morir(){
         gotoxy(x,y);   printf("* ** *");
         gotoxy(x,y+1); printf(" *  * ");
         gotoxy(x,y+2); printf("* ** *");
+=======
+        gotoxy(x,y);   printf("   **   ");
+        gotoxy(x,y+1); printf("  ****  ");
+        gotoxy(x,y+2); printf("   **   ");
+        Sleep(300);
+
+        borrar();
+        gotoxy(x,y);   printf(" * ** * ");
+        gotoxy(x,y+1); printf("  *  *  ");
+        gotoxy(x,y+2); printf(" * ** * ");
+>>>>>>> 61975e91aeb86a155429cab7c9b4876a3c48b208
         Sleep(300);
         borrar();
 
@@ -163,12 +181,21 @@ void ASTEROIDE::mover(){
         y++;
 
         gotoxy(x,y); printf(" ");
+<<<<<<< HEAD
         if(y >= 37){
             y = 2;
             x = rand() % 126 + 2;
         }
         pintar();
         Sleep(200);
+=======
+        if(y >= 30){
+            y = 4;
+            x = rand() % 132;
+        }
+        pintar();
+        Sleep(1000);
+>>>>>>> 61975e91aeb86a155429cab7c9b4876a3c48b208
 
     }
 
@@ -188,9 +215,18 @@ int main(){
     pintar_limites();
 
     NAVE N(7,7,3,3);
+<<<<<<< HEAD
     ASTEROIDE AST(10,2);
     N.marcar();
     N.barraDeSalud();
+=======
+    ASTEROIDE AST(10,4);
+    N.marcar();
+    N.barraDeSalud();
+
+    AST.mover();
+
+>>>>>>> 61975e91aeb86a155429cab7c9b4876a3c48b208
 
 
     AST.mover();
