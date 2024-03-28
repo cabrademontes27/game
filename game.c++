@@ -48,40 +48,33 @@ void NAVE::borrar(){
 
 void NAVE::mover(){
 
-    bool game_over = false;
-    while(!game_over){
-        
-        morir();
-        if(kbhit()){
-                // se agrega esta parte para borrar la marca de los asteristcos
-                char tecla = getch();
-                borrar();
-                // la conddicion de x>3 es para delimitar el limite 
-                if(tecla == 'a' && (x > 3)){
-                    x--;
-                }
-                if(tecla == 'd' && (x < 121)){
-                    x++;
-                }
-                if(tecla == 'w' && (y > 3)){
-                    y--;
-                }
-                if(tecla == 's' && (y < 34)){
-                    y++;
-                }
-                if(tecla == 'q'){
-                    game_over = true;
-                }
-                if(tecla == 'p'){
-                    corazones--;
-                    barraDeSalud();
-                }
-                
-
-                marcar();
-            };
-        Sleep(30);
-    }; 
+    morir();
+    if(kbhit()){
+            // se agrega esta parte para borrar la marca de los asteristcos
+            char tecla = getch();
+            borrar();
+            // la conddicion de x>3 es para delimitar el limite 
+            if(tecla == 'a' && (x > 3)){
+                x--;
+            }
+            if(tecla == 'd' && (x < 121)){
+                x++;
+            }
+            if(tecla == 'w' && (y > 3)){
+                y--;
+            }
+            if(tecla == 's' && (y < 34)){
+                y++;
+            }
+            /*if(tecla == 'q'){
+               game_over = true;
+            }*/ 
+            if(tecla == 'p'){
+                corazones--;
+                barraDeSalud();
+            }
+        marcar();
+    };
 };
 
 // indicador de vidas 
@@ -158,21 +151,15 @@ void ASTEROIDE::pintar(){
 
 void ASTEROIDE::mover(){
 
+    gotoxy(x,y); printf(" ");
+    y++;
 
-    bool apagador = false;
-    while(!apagador){
-        gotoxy(x,y); printf(" ");
-        y++;
-
-        gotoxy(x,y); printf(" ");
-        if(y >= 37){
-            y = 2;
-            x = rand() % 126 + 2;
-        }
-        pintar();
-        Sleep(200);
-
+    gotoxy(x,y); printf(" ");
+    if(y >= 37){
+        y = 2;
+        x = rand() % 126 + 2;
     }
+    pintar();
 
 }
 
@@ -194,9 +181,13 @@ int main(){
     N.marcar();
     N.barraDeSalud();
 
-
-    AST.mover();
-    N.mover();
+    bool interruptor = false;
+    while(!interruptor){
+        AST.mover();
+        N.mover();
+        Sleep(50);
+    }
+   
 
     return 0;
 }
