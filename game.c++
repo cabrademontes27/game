@@ -21,6 +21,7 @@ class NAVE{
         void mover();
         void barraDeSalud();
         void morir();
+        void colicion();
 };
 
 NAVE::NAVE(int _x, int _y, int _corazones,int _vida){
@@ -116,6 +117,10 @@ void NAVE::morir(){
     }
 
 
+};
+// se implementara apenas la colicion
+void NAVE::colicion(){
+    if(){}
 }
 
 
@@ -123,7 +128,7 @@ void NAVE::morir(){
 //nueva clase asteroide 
 class ASTEROIDE{
 private:
-    int x,y;
+    int x,y,a,b;
 
 public:
     ASTEROIDE(int _x, int _y);
@@ -177,13 +182,17 @@ int main(){
     pintar_limites();
 
     NAVE N(7,7,3,3);
-    ASTEROIDE AST(10,2);
+    ASTEROIDE AST1(10,2);
+    ASTEROIDE AST2(12,2);
+    ASTEROIDE AST3(11,2);
     N.marcar();
     N.barraDeSalud();
 
     bool interruptor = false;
     while(!interruptor){
-        AST.mover();
+        AST1.mover();
+        AST2.mover();
+        AST3.mover();
         N.mover();
         Sleep(50);
     }
