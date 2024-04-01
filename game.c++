@@ -9,6 +9,17 @@ void pintar_limites();
 
 using namespace std;
 
+
+
+
+
+
+
+
+
+
+
+
 class NAVE{
     int x, y;
     int corazones;
@@ -21,7 +32,7 @@ class NAVE{
         void mover();
         void barraDeSalud();
         void morir();
-        void colicion();
+        void colicion(class ASTEROIDE &AST1,class ASTEROIDE &AST2, class ASTEROIDE &AST3);
 };
 
 NAVE::NAVE(int _x, int _y, int _corazones,int _vida){
@@ -119,21 +130,51 @@ void NAVE::morir(){
 
 };
 // se implementara apenas la colicion
-void NAVE::colicion(){
-    if(){}
+void NAVE::colicion(ASTEROIDE &AST1, ASTEROIDE &AST2, ASTEROIDE &AST3) {
+    if ((x == AST1.X() && y == AST1.Y()) || 
+        (x == AST2.X() && y == AST2.Y()) || 
+        (x == AST3.X() && y == AST3.Y())) {
+            morir();
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 //nueva clase asteroide 
 class ASTEROIDE{
 private:
-    int x,y,a,b;
+    int x,y;
 
 public:
     ASTEROIDE(int _x, int _y);
     void pintar();
     void mover();
+
+    int X(){
+        return x;
+    }
+    int Y(){
+        return y;
+    }
 
 
 
@@ -176,6 +217,23 @@ void ASTEROIDE::mover(){
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 int main(){
     
     ocultarCursor();
@@ -200,6 +258,32 @@ int main(){
 
     return 0;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 void gotoxy(int x, int y){
 
