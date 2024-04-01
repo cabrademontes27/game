@@ -18,6 +18,68 @@ using namespace std;
 
 
 
+//nueva clase asteroide 
+class ASTEROIDE{
+private:
+    int x,y;
+
+public:
+    ASTEROIDE(int _x, int _y);
+    void pintar();
+    void mover();
+
+    int X(){
+        return x;
+    }
+    int Y(){
+        return y;
+    }
+
+
+
+
+};
+
+ASTEROIDE::ASTEROIDE(int _x, int _y){
+
+    x = _x;
+    y = _y;
+
+
+}
+
+void ASTEROIDE::pintar(){
+
+    gotoxy(x,y); printf("%c",220);
+
+}
+
+void ASTEROIDE::mover(){
+
+    gotoxy(x,y); printf(" ");
+    y++;
+
+    gotoxy(x,y); printf(" ");
+    if(y >= 37){
+        y = 2;
+        x = rand() % 126 + 2;
+    }
+    pintar();
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 class NAVE{
@@ -130,87 +192,17 @@ void NAVE::morir(){
 
 };
 // se implementara apenas la colicion
-void NAVE::colicion(ASTEROIDE &AST1, ASTEROIDE &AST2, ASTEROIDE &AST3) {
+void NAVE::colicion(class ASTEROIDE &AST1, class ASTEROIDE &AST2, class ASTEROIDE &AST3) {
     if ((x == AST1.X() && y == AST1.Y()) || 
         (x == AST2.X() && y == AST2.Y()) || 
-        (x == AST3.X() && y == AST3.Y())) {
-            morir();
+        (x == AST3.X() && y == AST3.Y())) 
+        {
+            corazones--;
+            barraDeSalud();
+            marcar();
+
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//nueva clase asteroide 
-class ASTEROIDE{
-private:
-    int x,y;
-
-public:
-    ASTEROIDE(int _x, int _y);
-    void pintar();
-    void mover();
-
-    int X(){
-        return x;
-    }
-    int Y(){
-        return y;
-    }
-
-
-
-
-};
-
-ASTEROIDE::ASTEROIDE(int _x, int _y){
-
-    x = _x;
-    y = _y;
-
-
-}
-
-void ASTEROIDE::pintar(){
-
-    gotoxy(x,y); printf("%c",220);
-
-}
-
-void ASTEROIDE::mover(){
-
-    gotoxy(x,y); printf(" ");
-    y++;
-
-    gotoxy(x,y); printf(" ");
-    if(y >= 37){
-        y = 2;
-        x = rand() % 126 + 2;
-    }
-    pintar();
-
-}
-
-
-
 
 
 
@@ -249,8 +241,9 @@ int main(){
     bool interruptor = false;
     while(!interruptor){
         AST1.mover();
-        AST2.mover();
+        AST2.mover();    
         AST3.mover();
+        N.colicion(AST1,AST2,AST3);
         N.mover();
         Sleep(50);
     }
